@@ -1,8 +1,13 @@
 import AppLayout from "@/components/AppLayout";
+import { web5Connection } from "@/services/web5";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 function index() {
+  // useEffect(() => {
+  //   web5Connection();
+  // }, []);
+
   return (
     <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-slate-200 bg-gradient-to-b  from-slate-200 to-[#481f0199]">
       <Link href="/filghts">
