@@ -4,7 +4,7 @@ export const web5Connection = async () => {
   console.log("testing connection");
   const { web5, did: lekenzDid } = await Web5.connect();
 
-  const { record } = await web5.dwn.records.create({
+  const { record }: any = await web5.dwn.records.create({
     data: "Hello, web5:",
     message: {
       dataFormat: "text/plain",
