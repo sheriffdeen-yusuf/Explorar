@@ -1,9 +1,8 @@
 import AppLayout from "@/components/AppLayout";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 function index() {
   return <AppLayout>Flights</AppLayout>;
-  <img src="./" alt="" />
 }
 
 export default index;

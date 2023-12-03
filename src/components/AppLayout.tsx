@@ -4,7 +4,7 @@ import BottomNavigation from "./BottomNavigation";
 
 function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="h-screen ">
+    <div className="min-h-screen ">
       {children}
       <BottomNavigation />
     </div>
