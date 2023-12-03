@@ -6,6 +6,9 @@ body {
   /* color: rgb(var(--foreground-rgb)); */
   /* color: #481f0199 */
 }
+.text-shadow {
+  text-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+}
 
 @layer components {
   .button-main {

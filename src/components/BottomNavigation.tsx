@@ -5,7 +5,7 @@ import React from "react";
 function BottomNavigation() {
   return (
     <footer className="absolute  bottom-0 left-0  flex h-[84px] w-full items-center justify-around bg-[#00000054] text-[#441414]">
-      <Link href="/">
+      <Link href="/home">
         <button className="flex flex-col items-center justify-center ">
           <Image
             src="/home.svg"
