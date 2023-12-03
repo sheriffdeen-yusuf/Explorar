@@ -8,13 +8,6 @@ function index() {
   return (
     // <AppLayout>Car Rentals</AppLayout>,
     <div className="flex  gap-8 flex-col items-center ">
-      {/* <Image
-        src="/carrentals.svg"
-        className="pt-1 text-center"
-        alt=""
-        width={430}
-        height={261}
-      /> */}
       <div className="w-full h-80 text-center items-center">
         <h1 className="bg-[url('/carrentals.svg')] h-full bg-cover bg-no-repeat bg-center text-white pt-20">Car Rentals</h1>
       </div>
