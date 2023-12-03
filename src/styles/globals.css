@@ -11,4 +11,7 @@ body {
   .button-main {
     @apply flex h-[59px] w-[282px] items-center justify-center rounded-[9px] bg-[#481f0199] font-bold text-white shadow-md transition-all duration-300 hover:bg-amber-900;
   }
+  .button-minor{
+    @apply flex h-[40px] w-[270px] items-center justify-center rounded-[10px] bg-[#481f0199] font-bold text-white shadow-md transition-all duration-300 hover:bg-amber-900;
+  }
 }
