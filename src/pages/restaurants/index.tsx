@@ -1,31 +1,39 @@
 import AppLayout from "@/components/AppLayout";
-import React from "react";
-import Link from "next/link";
+import React, { useEffect, useRef } from "react";
 
 function index() {
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
   return (
-    <div className="flex  gap-8 flex-col items-center ">
-    <div className="w-full h-80 text-center items-center">
-      <h1 className="bg-[url('/restaurantbg.svg')] h-full bg-cover bg-no-repeat bg-center text-white pt-20">Restaurants</h1>
-    </div>
-    
-    <Link href="/">
-      <button className="button-minor">Restaurant's Name</button>
-    </Link>
-    <Link href="/">
-      <button className="button-minor">Reservation for</button>
-    </Link>
-    <Link href="/">
-      <button className="button-minor">Table for</button>
-    </Link>
-    <Link href="/" className="mt-14">
-      <button className="button-minor">Save</button>
-    </Link>
+    <AppLayout>
+      <div className="min-h-full ">
+        <div className="flex h-[260px] justify-center bg-[url('/restaurantbg.svg')] bg-cover bg-center bg-no-repeat">
+          <h1 className="py-[35px] text-xl font-extrabold text-[#F4E7DE]">
+            Restaurants
+          </h1>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-4 pb-40 pt-14 ">
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Restaurant name "
+            className="flight-input"
+          />
+          <input
+            type="text"
+            placeholder="Reservation for"
+            className="flight-input"
+          />
 
-  </div>
+          <input type="text" placeholder="Table for" className="flight-input" />
 
-  )
-  // <AppLayout>Restuarant</AppLayout>;
+          <button className="btn-save">Save</button>
+        </div>
+      </div>
+    </AppLayout>
+  );
 }
 
 export default index;

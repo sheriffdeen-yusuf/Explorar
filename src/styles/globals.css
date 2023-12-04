@@ -14,13 +14,13 @@ body {
     @apply flex h-[59px] w-[282px] items-center justify-center rounded-[9px] bg-[#481f0199] font-bold text-white shadow-md transition-all duration-300 hover:bg-amber-900;
   }
 
-  .button-minor{
+  .button-minor {
     @apply flex h-[40px] w-[270px] items-center justify-center rounded-[10px] bg-[#481f0199] font-bold text-white shadow-md transition-all duration-300 hover:bg-amber-900;
   }
   .flight-input {
     @apply h-[35px] w-[240px] rounded-md bg-[#481f0199]   text-center text-white outline-none placeholder:text-white focus:outline focus:outline-offset-[3px] focus:outline-[#481f0199];
   }
   .btn-save {
-    @apply h-[51px] w-[155px] rounded-md bg-[#481f0199] text-white shadow-md shadow-[#481f0199];
+    @apply mt-10 h-[51px] w-[155px] rounded-md bg-[#481f0199] text-white shadow-md shadow-[#481f0199];
   }
 }
