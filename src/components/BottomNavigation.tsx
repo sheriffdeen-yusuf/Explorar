@@ -41,7 +41,7 @@ function BottomNavigation() {
           Search
         </button>
       </Link>
-      <Link href="">
+      <Link href="/profile">
         <button className="flex flex-col items-center justify-center ">
           <Image
             src="/profile.svg"

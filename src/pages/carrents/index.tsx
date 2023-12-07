@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from "react";
 function index() {
   const inputRef = useRef();
   useEffect(() => {
-    inputRef.current.focus();
+    // inputRef.current.focus();
   }, []);
   return (
     <AppLayout>
@@ -19,7 +19,7 @@ function index() {
         </div>
         <div className="flex flex-col items-center justify-center gap-4 pb-40 pt-14 ">
           <input
-            ref={inputRef}
+            // ref={inputRef}
             type="text"
             placeholder="Date of rental "
             className="flight-input"
