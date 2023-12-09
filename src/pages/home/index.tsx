@@ -1,7 +1,10 @@
+import { useAppContext } from "@/context/AppContext";
 import Link from "next/link";
 import React from "react";
 
 function index() {
+  // const { myDid } = useAppContext();
+  // console.log(myDid);
   return (
     <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-slate-200 bg-gradient-to-b  from-slate-200 to-[#481f0199]">
       <Link href="/filghts">

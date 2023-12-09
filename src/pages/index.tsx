@@ -7,8 +7,8 @@ import React, { useEffect, useState } from "react";
 
 function index() {
   const [show, setShow] = useState(true);
+
   useEffect(() => {
-    // web5Connection();
     const timerId = setTimeout(() => setShow(false), 3000);
     return () => clearTimeout(timerId);
   }, []);

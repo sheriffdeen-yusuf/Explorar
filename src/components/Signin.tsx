@@ -1,8 +1,10 @@
+import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 function Signin() {
+  const { handleCopyDid, didCopied } = useAppContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [did, setDid] = useState("");
   const naviagte = useRouter();
@@ -29,22 +31,30 @@ function Signin() {
           Get started and plan your trips!
         </h1>
         <div className="flex flex-col justify-center gap-6">
-          <div className="mr-2 rounded-md bg-white bg-opacity-50 px-8 py-1 text-left text-[#2F0808]">
+          {/* <div className="mr-2 rounded-md bg-white bg-opacity-50 px-8 py-1 text-left text-[#2F0808]">
             Insert DID
-          </div>
+          </div> */}
           <input
             type="text"
             onChange={(e) => setDid(e.target.value)}
             value={did}
+            placeholder="Enter recipientDid..."
             ref={inputRef}
-            className="mr-2 rounded-md bg-white bg-opacity-50 px-8 py-1 text-[#2F0808]"
+            className="mr-2 rounded-md bg-white bg-opacity-50 px-8 py-1 text-[#2F0808] placeholder:text-gray-800"
           />
           <button
             onClick={handleClick}
             className="mx-auto h-[48px] min-w-[136px] rounded-md bg-white bg-opacity-50 px-4 py-2 text-[#2F0808]"
           >
-            {did.length > 0 ? "Submit" : "Continue without a DID"}
+            {did.length > 0 ? "Proceed" : "Continue without recipientDid"}
           </button>
+          <button
+            onClick={handleCopyDid}
+            className="mx-auto h-[48px] min-w-[136px] rounded-md bg-white bg-opacity-50 px-4 py-2 text-[#2F0808]"
+          >
+            copy myDid
+          </button>
+          {didCopied && <p>DID copied to clipboard!</p>}
         </div>
       </div>
     </div>
