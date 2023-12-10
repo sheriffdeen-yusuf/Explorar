@@ -17,7 +17,7 @@ function BottomNavigation() {
           Home
         </button>
       </Link>
-      <Link href="">
+      <Link href="/notifications">
         <button className="flex flex-col items-center justify-center ">
           <Image
             src="/notification.svg"
