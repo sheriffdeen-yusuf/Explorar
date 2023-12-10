@@ -4,7 +4,7 @@
 
 body {
   /* color: rgb(var(--foreground-rgb)); */
-  /* color: #481f0199 */
+  color: #481f0166;
 }
 .text-shadow {
   text-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
@@ -18,9 +18,21 @@ body {
     @apply flex h-[40px] w-[270px] items-center justify-center rounded-[10px] bg-[#481f0199] font-bold text-white shadow-md transition-all duration-300 hover:bg-amber-900;
   }
   .flight-input {
-    @apply h-[35px] w-[240px] rounded-md bg-[#481f0199]   text-center text-white outline-none placeholder:text-white focus:outline focus:outline-offset-[3px] focus:outline-[#481f0199];
+    @apply h-[45px] w-[265px] rounded-md border border-[#481F01] bg-slate-50   text-center text-[#481F01] outline-none placeholder:text-[#481f0166] focus:outline focus:outline-offset-[3px] focus:outline-[#481f0199];
   }
   .btn-save {
     @apply mt-10 h-[51px] w-[155px] rounded-md bg-[#481f0199] text-white shadow-md shadow-[#481f0199];
+  }
+  .btn-action {
+    @apply h-[33px] w-[85px] rounded-xl text-white shadow-md  shadow-[#481f0199] md:h-[45px] md:w-[100px];
+  }
+  .btn-login {
+    @apply mx-auto h-[54px] min-w-[136px] rounded-md border bg-[#481F01] px-4 py-2 text-white transition-all duration-300 hover:bg-[#2C1200];
+  }
+  .nav-text {
+    @apply text-xl font-bold text-[#2F0808] underline-offset-8 transition-all duration-300 hover:scale-105 hover:underline hover:shadow-lg;
+  }
+  .nav-text-active {
+    @apply underline;
   }
 }

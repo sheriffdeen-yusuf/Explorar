@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import Logo from "./Logo";
 
 function IntroLoader() {
   return (
@@ -12,17 +13,7 @@ function IntroLoader() {
         className="h-screen w-full object-cover"
       />
       <div className="absolute bottom-[20%] right-0 z-20  text-[#2F0808]">
-        <div className="text-shadow flex  items-center justify-center text-4xl font-extrabold uppercase ">
-          Expl
-          <Image
-            src="/globe.svg"
-            height={40}
-            width={40}
-            className="animate-spin "
-            alt="globe"
-          />
-          ra
-        </div>
+        <Logo />
         <h1 className="">Web5-Powered</h1>
       </div>
     </div>

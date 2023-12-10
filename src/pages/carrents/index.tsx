@@ -1,6 +1,3 @@
-{
-  /* <h1 className="bg-[url('/carrentals.svg')] h-full bg-cover bg-no-repeat bg-center text-white pt-20">Car Rentals</h1> */
-}
 import AppLayout from "@/components/AppLayout";
 import React, { useEffect, useRef } from "react";
 
@@ -11,13 +8,17 @@ function index() {
   }, []);
   return (
     <AppLayout>
-      <div className="min-h-full ">
-        <div className="flex h-[260px] justify-center bg-[url('/carrentals.svg')] bg-cover bg-center bg-no-repeat">
-          <h1 className="py-[35px] text-xl font-extrabold text-[#F8A76B]">
+      <div className="flex min-h-full flex-col  md:flex-row md:justify-between  ">
+        <div className="flex h-[260px] justify-center bg-[url('/carrentals.svg')] bg-cover bg-center md:min-h-screen md:w-[55%] md:bg-[url('/carrentalsLarge.png')]">
+          <h1 className="py-[35px] text-xl font-extrabold text-[#F8A76B] md:hidden">
             Car rentals
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center gap-4 pb-40 pt-14 ">
+        <div className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 ">
+          <h3 className="mb-4 hidden text-3xl font-bold text-[#441414] md:block">
+            {" "}
+            Car Rentals
+          </h3>
           <input
             ref={inputRef}
             type="text"

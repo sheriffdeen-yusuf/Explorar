@@ -6,7 +6,7 @@ import React from "react";
 function index() {
   return (
     <AppLayout>
-      <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-slate-200 bg-gradient-to-b  from-slate-200 to-[#481f0199]">
+      <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-[url('/notification.png')] bg-cover bg-center  md:bg-[url('/notificationLarge.png')]">
         <Link href="/filghts">
           <button className="button-main">Flights</button>
         </Link>

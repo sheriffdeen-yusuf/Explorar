@@ -8,13 +8,17 @@ function index() {
   }, []);
   return (
     <AppLayout>
-      <div className="min-h-full ">
-        <div className="flex h-[260px] justify-center bg-[url('/restaurantbg.svg')] bg-cover bg-center bg-no-repeat">
-          <h1 className="py-[35px] text-xl font-extrabold text-[#F4E7DE]">
+      <div className="flex min-h-full flex-col  md:flex-row md:justify-between  ">
+        <div className="flex h-[260px] justify-center bg-[url('/restaurantbg.svg')] bg-cover bg-center md:min-h-screen md:w-[55%] md:bg-[url('/restaurantLarge.png')]">
+          <h1 className="py-[35px] text-xl font-extrabold text-[#F4E7DE] md:hidden">
             Restaurants
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center gap-4 pb-40 pt-14 ">
+        <div className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 ">
+          <h3 className="mb-4 hidden text-3xl font-bold text-[#441414] md:block">
+            {" "}
+            Restaurants
+          </h3>
           <input
             ref={inputRef}
             type="text"

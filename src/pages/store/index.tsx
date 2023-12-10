@@ -6,17 +6,17 @@ import React from "react";
 function index() {
   return (
     <AppLayout>
-      <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-slate-200 bg-gradient-to-b  from-slate-200 to-[#481f0199]">
-        <Link href="/filghts">
+      <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-[url('/store.png')] bg-cover bg-center  md:bg-[url('/storeLarge.png')]">
+        <Link href="/filghts/listedItems">
           <button className="button-main">Flights</button>
         </Link>
-        <Link href="/hotels">
+        <Link href="/hotels/listedItems">
           <button className="button-main">Hotels</button>
         </Link>
-        <Link href="/carrents">
+        <Link href="/carrents/listedItems">
           <button className="button-main">Car rentals</button>
         </Link>
-        <Link href="/restaurants">
+        <Link href="/restaurants/listedItems">
           <button className="button-main">Restaurants</button>
         </Link>
       </div>
