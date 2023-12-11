@@ -6,11 +6,13 @@ import { useRouter } from "next/router";
 function Header() {
   const router = useRouter();
   const [subLink, setSubLink] = useState(false);
+  const [sublink2, setSubLink2] = useState(false);
   let activeLink = router.asPath;
   useEffect(() => {
     if (activeLink.endsWith("listedItems")) {
       setSubLink(true);
     }
+    if (activeLink.endsWith("Notification")) setSubLink2(true);
   }, [activeLink]);
 
   return (
@@ -41,12 +43,13 @@ function Header() {
           <Link href="/notification" className="relative">
             <h3
               className={`nav-text ${
-                activeLink.includes("/notification") && "nav-text-active"
+                (activeLink.includes("/notification") || sublink2) &&
+                "nav-text-active"
               }`}
             >
               Notification
             </h3>
-            {activeLink.includes("/notification") && <Bing />}
+            {(activeLink.includes("/notification") || sublink2) && <Bing />}
           </Link>
           <Link href="/profile" className="relative">
             <h3

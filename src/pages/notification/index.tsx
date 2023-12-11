@@ -7,16 +7,16 @@ function index() {
   return (
     <AppLayout>
       <div className="flex h-screen  flex-col items-center justify-center gap-8 bg-[url('/notification.png')] bg-cover bg-center  md:bg-[url('/notificationLarge.png')]">
-        <Link href="/filghts">
+        <Link href="/notification/FlightsNotification">
           <button className="button-main">Flights</button>
         </Link>
-        <Link href="/hotels">
+        <Link href="/notification/HotelsNotification">
           <button className="button-main">Hotels</button>
         </Link>
-        <Link href="/carrents">
+        <Link href="/notification/CarrentalsNotification">
           <button className="button-main">Car rentals</button>
         </Link>
-        <Link href="/restaurants">
+        <Link href="/notification/RestaurantsNotification">
           <button className="button-main">Restaurants</button>
         </Link>
       </div>
