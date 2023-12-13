@@ -35,15 +35,15 @@ function Signin() {
             type="text"
             onChange={(e) => setDid(e.target.value)}
             value={did}
-            placeholder="Enter recipientDid..."
+            placeholder="Enter recipient DID..."
             ref={inputRef}
             className="mr-2 rounded-md bg-white bg-opacity-50 px-8 py-3 text-[#2F0808] placeholder:text-gray-800"
           />
           <button onClick={handleClick} className="btn-login">
-            {did.length > 0 ? "Proceed" : "Continue without recipientDid"}
+            {did.length > 0 ? "Proceed" : "Continue without recipient DID"}
           </button>
           <button onClick={handleCopyDid} className="btn-login">
-            copy myDid
+            copy myDID
           </button>
           {didCopied && <p>DID copied to clipboard!</p>}
         </div>
