@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Web5 } from "@web5/api";
+import { useRouter } from "next/router";
 
 interface AppContextProps {
   web5: any;
@@ -8,10 +9,10 @@ interface AppContextProps {
   submitStatus: string;
   didCopied: boolean;
   formData: any;
+  isLoading: boolean;
   setFormData: (e: any) => void;
   handleCopyDid: () => void;
   fetchFlightMessages: () => void;
-
   handleSubmit: () => void;
 }
 
@@ -21,6 +22,7 @@ export const AppContext = createContext<AppContextProps>({
   recipientDid: "",
   submitStatus: "",
   didCopied: false,
+  isLoading: false,
   formData: {},
   setFormData: (e) => null,
   handleCopyDid: () => null,
@@ -32,9 +34,12 @@ export default function AppProvider({ children }: any) {
   const [web5, setWeb5] = useState<any>();
   const [myDid, setMyDid] = useState("");
   const [recipientDid, setRecipientDid] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
   const [didCopied, setDidCopied] = useState(false);
   const [formData, setFormData] = useState({});
+
+  const router = useRouter();
 
   useEffect(() => {
     const initWeb5 = async () => {
@@ -240,11 +245,11 @@ export default function AppProvider({ children }: any) {
     console.log("Fetching  messages...");
     try {
       const response = await web5.dwn.records.query({
-        from: myDid,
         message: {
           filter: {
             protocol: "https://explorar.netlify.app",
             schema: "https://explorar.netlify.app/schemas/flightSchema",
+            dataFormat: "application/json",
           },
         },
       });
@@ -259,6 +264,7 @@ export default function AppProvider({ children }: any) {
     setSubmitStatus("Submitting...");
 
     try {
+      setIsLoading(true);
       let messageObj;
       let record;
 
@@ -270,14 +276,23 @@ export default function AppProvider({ children }: any) {
         console.log(record, "successfully write to record");
         // const { status } = await record.send(targetDid);
         // console.log("Send record status in handleSubmit", status);
-        // setSubmitStatus("Message submitted successfully");
         // await fetchFlightMessages();
+
+        setSubmitStatus("Record submitted ✅️ ");
+        const timerId = setTimeout(() => {
+          setSubmitStatus("");
+          router.push("/store");
+        }, 2000);
+        return () => clearTimeout(timerId);
       } else {
+        setIsLoading(false);
         throw new Error("Failed to create record");
       }
     } catch (error) {
       console.error("Error in handleSubmit", error);
-      setSubmitStatus("Error submitting message: " + error);
+      setSubmitStatus("Error submitting record");
+    } finally {
+      setIsLoading(false);
     }
   };
   //   handle copy did
@@ -303,6 +318,7 @@ export default function AppProvider({ children }: any) {
         recipientDid,
         submitStatus,
         didCopied,
+        isLoading,
         formData,
         setFormData,
         handleCopyDid,

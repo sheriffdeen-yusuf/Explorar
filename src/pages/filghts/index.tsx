@@ -7,6 +7,8 @@ function index() {
     handleSubmit,
     formData: appFormData,
     setFormData: appSetFormData,
+    submitStatus,
+    isLoading,
   } = useAppContext();
   const [formData, setFormData] = useState({
     fromLocation: "",
@@ -109,10 +111,11 @@ function index() {
           />
           <button
             type="submit"
-            className="btn-save"
+            disabled={isLoading}
+            className={`btn-save disabled:cursor-not-allowed disabled:opacity-50`}
             onClick={(e) => handleFlightFormSubmission(e)}
           >
-            Save
+            {submitStatus === "" ? "submit" : submitStatus}
           </button>
         </form>
       </div>

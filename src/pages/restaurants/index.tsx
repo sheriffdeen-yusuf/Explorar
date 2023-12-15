@@ -1,8 +1,44 @@
 import AppLayout from "@/components/AppLayout";
-import React, { useEffect, useRef } from "react";
+import { useAppContext } from "@/context/AppContext";
+import React, { useEffect, useRef, useState } from "react";
 
 function index() {
   const inputRef = useRef();
+
+  const {
+    handleSubmit,
+    formData: appFormData,
+    setFormData: appSetFormData,
+    submitStatus,
+    isLoading,
+  } = useAppContext();
+  const [formData, setFormData] = useState({
+    restaurnatName: "",
+    reservation: "",
+    tableType: "",
+  });
+
+  function handleChnage(e: any) {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+  function handleRestaurantFormSubmission(e: any) {
+    e.preventDefault();
+    const allValueExits = Object.values(formData).every(
+      (value) => value !== "",
+    );
+    if (allValueExits) {
+      appSetFormData(formData);
+      handleSubmit();
+      console.log(formData);
+    } else {
+      alert("Please fill in all field");
+    }
+  }
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -14,7 +50,7 @@ function index() {
             Restaurants
           </h1>
         </div>
-        <div className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 ">
+        <form className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 ">
           <h3 className="mb-4 hidden text-3xl font-bold text-[#441414] md:block">
             {" "}
             Restaurants
@@ -22,19 +58,39 @@ function index() {
           <input
             ref={inputRef}
             type="text"
+            name="restaurnatName"
+            value={formData.restaurnatName}
+            onChange={handleChnage}
             placeholder="Restaurant name "
             className="flight-input"
           />
           <input
             type="text"
+            name="reservation"
+            value={formData.reservation}
+            onChange={handleChnage}
             placeholder="Reservation for"
             className="flight-input"
           />
 
-          <input type="text" placeholder="Table for" className="flight-input" />
+          <input
+            type="text"
+            name="tableType"
+            value={formData.tableType}
+            onChange={handleChnage}
+            placeholder="Table for"
+            className="flight-input"
+          />
 
-          <button className="btn-save">Save</button>
-        </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`btn-save disabled:cursor-not-allowed disabled:opacity-50`}
+            onClick={(e) => handleRestaurantFormSubmission(e)}
+          >
+            {submitStatus === "" ? "submit" : submitStatus}
+          </button>
+        </form>
       </div>
     </AppLayout>
   );
