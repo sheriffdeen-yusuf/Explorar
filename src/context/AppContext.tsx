@@ -7,7 +7,12 @@ interface AppContextProps {
   recipientDid: string;
   submitStatus: string;
   didCopied: boolean;
+  formData: any;
+  setFormData: (e: any) => void;
   handleCopyDid: () => void;
+  fetchFlightMessages: () => void;
+
+  handleSubmit: () => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -16,7 +21,11 @@ export const AppContext = createContext<AppContextProps>({
   recipientDid: "",
   submitStatus: "",
   didCopied: false,
+  formData: {},
+  setFormData: (e) => null,
   handleCopyDid: () => null,
+  fetchFlightMessages: () => null,
+  handleSubmit: () => null,
 });
 
 export default function AppProvider({ children }: any) {
@@ -25,15 +34,20 @@ export default function AppProvider({ children }: any) {
   const [recipientDid, setRecipientDid] = useState("");
   const [submitStatus, setSubmitStatus] = useState("");
   const [didCopied, setDidCopied] = useState(false);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const initWeb5 = async () => {
-      const { web5, did } = await Web5.connect({ sync: "5s" });
-      setWeb5(web5);
-      setMyDid(did);
-      console.log(did);
-      if (web5 && did) {
-        console.log("configure protocol");
+      try {
+        const { web5, did } = await Web5.connect({ sync: "5s" });
+        setWeb5(web5);
+        setMyDid(did);
+        console.log(did);
+        if (web5 && did) {
+          await configureProtocol(web5, did);
+        }
+      } catch (err) {
+        console.log("An error occured" + err);
       }
     };
     initWeb5();
@@ -161,6 +175,111 @@ export default function AppProvider({ children }: any) {
     };
   };
 
+  // write to DWN
+  const writeToDWN = async (formData: any) => {
+    try {
+      const exploraMessageProtocol = defineNewProtocol();
+      const record = await web5?.dwn.records.write({
+        data: formData,
+        message: {
+          protocol: exploraMessageProtocol.protocol,
+          protocolPath: "flights",
+          schema: exploraMessageProtocol.types.flights.schema,
+          recipient: myDid,
+        },
+      });
+
+      // if (status.code === 200) {
+      //   console.log("print currForm record", {
+      //     ...formData,
+      //     recordId: record.id,
+      //   });
+      // }
+
+      console.log("flight message written to DWN", { record });
+      return record;
+    } catch (error) {
+      console.error("Error writing  message to DWN", error);
+    }
+  };
+
+  // construct message
+  const constructMessage = (recipientDid: any) => {
+    const currentDate = new Date().toLocaleDateString();
+    const currentTime = new Date().toLocaleTimeString();
+
+    return {
+      text: formData,
+      timestamp: `${currentDate}Direct ${currentTime}`,
+      sender: myDid,
+      type: "flights",
+      recipientDid: recipientDid,
+    };
+  };
+
+  // fetch message
+
+  // if (response.status.code === 200) {
+  //   const filghtsMessages = await Promise.all(
+  //     response.records.map(async (record) => {
+  //       const data = await record.data.json();
+  //       return {
+  //         ...data,
+  //         recordId: record.id,
+  //       };
+  //     }),
+  //   );
+  //   console.log(filghtsMessages, "I received filghtsMessage");
+  //   return filghtsMessages;
+  // } else {
+  //   console.error("Error fetching sent messages:", response.status);
+  //   return [];
+  // }
+
+  const fetchFlightMessages = async () => {
+    console.log("Fetching  messages...");
+    try {
+      const response = await web5.dwn.records.query({
+        from: myDid,
+        message: {
+          filter: {
+            protocol: "https://explorar.netlify.app",
+            schema: "https://explorar.netlify.app/schemas/flightSchema",
+          },
+        },
+      });
+      if (response) console.log("response", response);
+    } catch (error) {
+      console.error("Error in fetchFlightMessages:", error);
+    }
+  };
+
+  // handle submit
+  const handleSubmit = async () => {
+    setSubmitStatus("Submitting...");
+
+    try {
+      let messageObj;
+      let record;
+
+      console.log("Sending direct message...");
+      messageObj = constructMessage(recipientDid);
+      record = await writeToDWN(messageObj);
+
+      if (record) {
+        console.log(record, "successfully write to record");
+        // const { status } = await record.send(targetDid);
+        // console.log("Send record status in handleSubmit", status);
+        // setSubmitStatus("Message submitted successfully");
+        // await fetchFlightMessages();
+      } else {
+        throw new Error("Failed to create record");
+      }
+    } catch (error) {
+      console.error("Error in handleSubmit", error);
+      setSubmitStatus("Error submitting message: " + error);
+    }
+  };
   //   handle copy did
   const handleCopyDid = async () => {
     if (myDid) {
@@ -184,7 +303,11 @@ export default function AppProvider({ children }: any) {
         recipientDid,
         submitStatus,
         didCopied,
+        formData,
+        setFormData,
         handleCopyDid,
+        fetchFlightMessages,
+        handleSubmit,
       }}
     >
       {children}

@@ -1,12 +1,21 @@
 import AppLayout from "@/components/AppLayout";
+import { useAppContext } from "@/context/AppContext";
 import React from "react";
 
 function listedItem() {
+  const { fetchFlightMessages } = useAppContext();
   return (
     <AppLayout>
       <h2 className="mt-4 text-center text-xl font-bold text-[#441414] md:mt-1 md:text-3xl">
         Flights Listed Items
       </h2>
+      <button
+        onClick={fetchFlightMessages}
+        className="btn-action mx-auto flex w-max items-center  justify-center bg-[#481f0199] px-2"
+      >
+        Fetch flights items{" "}
+      </button>
+
       <div className="mt-8 space-y-14 px-6 py-8 pb-32 md:px-10">
         {/* item 1 */}
         <div className="grid content-end justify-items-end gap-3 md:grid-cols-12 md:gap-0 ">

@@ -1,7 +1,43 @@
 import AppLayout from "@/components/AppLayout";
-import React, { useEffect, useRef } from "react";
+import { useAppContext } from "@/context/AppContext";
+import React, { useEffect, useRef, useState } from "react";
 
 function index() {
+  const {
+    handleSubmit,
+    formData: appFormData,
+    setFormData: appSetFormData,
+  } = useAppContext();
+  const [formData, setFormData] = useState({
+    fromLocation: "",
+    toDestination: "",
+    airport: "",
+    timeOfDeparture: "",
+    flightClass: "",
+    passengerNo: "",
+  });
+
+  function handleChnage(e: any) {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+  function handleFlightFormSubmission(e: any) {
+    e.preventDefault();
+    const allValueExits = Object.values(formData).every(
+      (value) => value !== "",
+    );
+    if (allValueExits) {
+      appSetFormData(formData);
+      handleSubmit();
+      console.log(formData);
+    } else {
+      alert("Please fill in all field");
+    }
+  }
+
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -14,7 +50,10 @@ function index() {
             Flights
           </h1>
         </div>
-        <div className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 ">
+        <form
+          method="POST"
+          className="mx-auto flex flex-col items-center justify-center gap-4 pb-40 pt-14 md:pb-10 "
+        >
           <h3 className="mb-4 hidden text-3xl font-bold text-[#441414] md:block">
             {" "}
             Flights
@@ -22,24 +61,60 @@ function index() {
           <input
             ref={inputRef}
             type="text"
+            name="fromLocation"
+            value={formData.fromLocation}
+            onChange={handleChnage}
             placeholder="From  "
             className="flight-input"
           />
-          <input type="text" placeholder="To " className="flight-input" />
-          <input type="text" placeholder="Airport " className="flight-input" />
           <input
             type="text"
+            name="toDestination"
+            value={formData.toDestination}
+            onChange={handleChnage}
+            placeholder="To "
+            className="flight-input"
+          />
+          <input
+            type="text"
+            name="airport"
+            value={formData.airport}
+            onChange={handleChnage}
+            placeholder="Airport "
+            className="flight-input"
+          />
+          <input
+            type="text"
+            name="timeOfDeparture"
+            value={formData.timeOfDeparture}
+            onChange={handleChnage}
             placeholder="Time of departure "
             className="flight-input"
           />
-          <input type="text" placeholder="Class " className="flight-input" />
           <input
             type="text"
+            name="flightClass"
+            value={formData.flightClass}
+            onChange={handleChnage}
+            placeholder="Class "
+            className="flight-input"
+          />
+          <input
+            type="text"
+            name="passengerNo"
+            value={formData.passengerNo}
+            onChange={handleChnage}
             placeholder="Passengers "
             className="flight-input"
           />
-          <button className="btn-save">Save</button>
-        </div>
+          <button
+            type="submit"
+            className="btn-save"
+            onClick={(e) => handleFlightFormSubmission(e)}
+          >
+            Save
+          </button>
+        </form>
       </div>
     </AppLayout>
   );
